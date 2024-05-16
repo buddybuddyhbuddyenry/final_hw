@@ -67,7 +67,7 @@ class _BikeState extends State<Bike> {
   Future<List> fetchBikeStation() async {
     var response2 = await http.get(
       Uri.parse(
-          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON&\$filter=contains(StationName/Zh_tw, '$searchTerm')"),
+          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON"),
       headers: {
         'accept': ' application/json',
         'Authorization':
@@ -139,7 +139,8 @@ class _BikeState extends State<Bike> {
                                           Text(
                                               '可還車數:${youbike['AvailableReturnBikes']}')
                                         ],
-                                      )
+                                      ),
+                                      Text('StationID:${youbikeStation['StationID']}'),
                                     ],
                                   ),
                                 ),
