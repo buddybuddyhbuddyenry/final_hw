@@ -20,7 +20,7 @@ class _BikeState extends State<Bike> {
   late Future<List> futurestaion;
   bool _showProgressIndicator = false;
   bool restart = false;
-  String searchTerm = 'Y';
+  String searchTerm = '0';
 
   void initstate() {
     super.initState();
@@ -31,11 +31,11 @@ class _BikeState extends State<Bike> {
   Future<List> fetchBikeState() async {
     var response1 = await http.get(
       Uri.parse(
-          'https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/Taipei?%24format=JSON'),
+          "https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/Taipei?\$filter=contains(StationID, '$searchTerm')&%24format=JSON"),
       headers: {
         'accept': ' application/json',
         'Authorization':
-            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTU5MjI3NjAsImlhdCI6MTcxNTgzNjM2MCwianRpIjoiOGE1YWVmOWItMTc1Zi00ZmZmLWE2MzMtMDZkZTk2MGNhN2Q4IiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiYmZkOTVjZDMtMGU3Ni00MDNjLWJmNjAtMTc5YTA0Y2U3Yzk5IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.EHhDsLdXj0YQtnL8kfl9UxSrdhfy_Am1UsVJibEjw_HzHATrYVqJD5MZIwz6910es4uIAArsgNP8RW0_ebpAoT7RLTJ_bIiRwzD9WO1bsJqRRaEYiKIkJUkxWVAboqSSTewBNpahE5N7qfYnjUt2BDOmKvUY1pNI3fNg6oBEQp3B2PTh7NP0ly3W0rBbVJvRxfLID4WN-42VvzfLCTRC9onKkFP-gxBz-_FtTfI1Xq28fyr7kp-6TG_dE-lwRkRl5F1lgq9iJ8_At9Ee_P20Tgkq_4JPgffCmy1apFcMlzabUI6AB7KwIz3mghyr1V7fIokJjh8597rX7Q3HYlVxPA'
+            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYwMDYwMTAsImlhdCI6MTcxNTkxOTYxMCwianRpIjoiYThhODRkZDEtNzdiMy00MGMyLTliMTUtZmI0MDdhM2EyNTJmIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.c0Gc6pd4zjTZ0_OmmRp7fUVRD1YwjmQ-QDiEOv9UiTp6fkdvsdK_YIbRIxLn7cRZOstDN4MPJYZxyv5puQSwwy3scYvq4scej4cKCECHHXGYMnjIXl1jh2g66dl7DELPgBd3oSNGuDZ2lO3gYwRa8MbWw90TXoHG6JQisEo-DUK7kFGJUzxuzeAX5aejJuMkRi4LRrXKEfc2s_9bNXvW4BkxdEb1S9LHJiDORjjb0ReN-WoNcdlMZSPxfunZVHLozWbOGAu_YmijigVc9IkSJtq6gRAX5POmg-5gYZBlKAN0hkPQSbvTYB5wYr1e4mS7E8IAn291qBOo8F3klYEA1Q'
       },
     );
 
@@ -67,11 +67,11 @@ class _BikeState extends State<Bike> {
   Future<List> fetchBikeStation() async {
     var response2 = await http.get(
       Uri.parse(
-          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON"),
+          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON&\$filter=contains(StationID, '$searchTerm')"),
       headers: {
         'accept': ' application/json',
         'Authorization':
-            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTU5MjI3NjAsImlhdCI6MTcxNTgzNjM2MCwianRpIjoiOGE1YWVmOWItMTc1Zi00ZmZmLWE2MzMtMDZkZTk2MGNhN2Q4IiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiYmZkOTVjZDMtMGU3Ni00MDNjLWJmNjAtMTc5YTA0Y2U3Yzk5IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.EHhDsLdXj0YQtnL8kfl9UxSrdhfy_Am1UsVJibEjw_HzHATrYVqJD5MZIwz6910es4uIAArsgNP8RW0_ebpAoT7RLTJ_bIiRwzD9WO1bsJqRRaEYiKIkJUkxWVAboqSSTewBNpahE5N7qfYnjUt2BDOmKvUY1pNI3fNg6oBEQp3B2PTh7NP0ly3W0rBbVJvRxfLID4WN-42VvzfLCTRC9onKkFP-gxBz-_FtTfI1Xq28fyr7kp-6TG_dE-lwRkRl5F1lgq9iJ8_At9Ee_P20Tgkq_4JPgffCmy1apFcMlzabUI6AB7KwIz3mghyr1V7fIokJjh8597rX7Q3HYlVxPA'
+            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYwMDYwMTAsImlhdCI6MTcxNTkxOTYxMCwianRpIjoiYThhODRkZDEtNzdiMy00MGMyLTliMTUtZmI0MDdhM2EyNTJmIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.c0Gc6pd4zjTZ0_OmmRp7fUVRD1YwjmQ-QDiEOv9UiTp6fkdvsdK_YIbRIxLn7cRZOstDN4MPJYZxyv5puQSwwy3scYvq4scej4cKCECHHXGYMnjIXl1jh2g66dl7DELPgBd3oSNGuDZ2lO3gYwRa8MbWw90TXoHG6JQisEo-DUK7kFGJUzxuzeAX5aejJuMkRi4LRrXKEfc2s_9bNXvW4BkxdEb1S9LHJiDORjjb0ReN-WoNcdlMZSPxfunZVHLozWbOGAu_YmijigVc9IkSJtq6gRAX5POmg-5gYZBlKAN0hkPQSbvTYB5wYr1e4mS7E8IAn291qBOo8F3klYEA1Q'
       },
     );
 
@@ -113,6 +113,30 @@ class _BikeState extends State<Bike> {
                     var items2 = snapshot.data![1];
                     return Column(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SearchAnchor(
+                            builder: (context, controller) {
+                              return SearchBar(
+                                leading: const Icon(Icons.search),
+                                controller: controller,
+                                hintText: 'Search music',
+                                textInputAction: TextInputAction.search,
+                                onSubmitted: (value) {
+                                  setState(() {
+                                    restart = true;
+                                    searchTerm = value;
+                                    futurebike = fetchBikeState();
+                                    futurestaion = fetchBikeStation();
+                                  });
+                                },
+                              );
+                            },
+                            suggestionsBuilder: (context, controller) {
+                              return [];
+                            },
+                          ),
+                        ),
                         Expanded(
                           child: ListView.builder(
                             padding: const EdgeInsets.all(10),
@@ -125,10 +149,11 @@ class _BikeState extends State<Bike> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                          youbikeStation['StationName']['Zh_tw']),
+                                      Text(youbikeStation['StationName']
+                                          ['Zh_tw']),
                                       Row(
                                         children: [
                                           Text(
@@ -140,7 +165,8 @@ class _BikeState extends State<Bike> {
                                               '可還車數:${youbike['AvailableReturnBikes']}')
                                         ],
                                       ),
-                                      Text('StationID:${youbikeStation['StationID']}'),
+                                      Text(
+                                          'StationID:${youbikeStation['StationID']}'),
                                     ],
                                   ),
                                 ),
