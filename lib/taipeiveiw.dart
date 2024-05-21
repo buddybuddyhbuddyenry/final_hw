@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'main.dart';
 
 class Taipeiveiw extends StatefulWidget {
-const Taipeiveiw({super.key});
+  const Taipeiveiw({super.key});
 
   @override
   State<Taipeiveiw> createState() => _MyAppState();
@@ -40,6 +39,7 @@ class _MyAppState extends State<Taipeiveiw> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor:const Color.fromARGB(31, 223, 213, 20),
         //appBar: AppBar(
         //  title: const Text('台北旅遊景點'),
         //),
@@ -57,13 +57,16 @@ class _MyAppState extends State<Taipeiveiw> {
                     return InkWell(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SecondRoute(
-                                      data: ite,
-                                    )));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SecondRoute(
+                              data: ite,
+                            ),
+                          ),
+                        );
                       },
                       child: Card(
+                        color: Color.fromARGB(255, 220, 227, 167),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(

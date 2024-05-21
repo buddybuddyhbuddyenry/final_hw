@@ -20,23 +20,19 @@ class _BikeState extends State<Bike> {
   late Future<List> futurestaion;
   bool _showProgressIndicator = false;
   bool restart = false;
-  String searchTerm = '0';
+  String searchTerm = 'Y';
 
   void initstate() {
     super.initState();
-    futurebike = fetchBikeState();
+    //futurebike = fetchBikeState();
     futurestaion = fetchBikeStation();
   }
 
   Future<List> fetchBikeState() async {
     var response1 = await http.get(
       Uri.parse(
-          "https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/Taipei?\$filter=contains(StationID, '$searchTerm')&%24format=JSON"),
-      headers: {
-        'accept': ' application/json',
-        'Authorization':
-            token
-      },
+          "https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/Taipei?%24format=JSON"),
+      headers: {'accept': ' application/json', 'Authorization': token},
     );
 
     //await Future.delayed(Duration(seconds: 3));
@@ -67,12 +63,8 @@ class _BikeState extends State<Bike> {
   Future<List> fetchBikeStation() async {
     var response2 = await http.get(
       Uri.parse(
-          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON&\$filter=contains(StationID, '$searchTerm')"),
-      headers: {
-        'accept': ' application/json',
-        'Authorization':
-            token
-      },
+          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON&\$filter=contains(StationName/Zh_tw, '$searchTerm')"),
+      headers: {'accept': ' application/json', 'Authorization': token},
     );
 
     //await Future.delayed(const Duration(seconds: 3));
@@ -101,32 +93,39 @@ class _BikeState extends State<Bike> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(198, 195, 173, 10)),
+        useMaterial3: true,
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: const Color.fromARGB(31, 223, 213, 20),
         body: _showProgressIndicator
             ? const Center(child: CircularProgressIndicator())
             : FutureBuilder(
                 future: Future.wait([fetchBikeState(), fetchBikeStation()]),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    var items = snapshot.data![0];
+                    //var items = snapshot.data![0];
                     var items2 = snapshot.data![1];
                     return Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: SearchAnchor(
+                          child: SearchAnchor(                           
                             builder: (context, controller) {
                               return SearchBar(
                                 leading: const Icon(Icons.search),
                                 controller: controller,
                                 hintText: 'Search Station ',
                                 textInputAction: TextInputAction.search,
+                                
                                 onSubmitted: (value) {
                                   setState(() {
                                     restart = true;
                                     searchTerm = value;
-                                    futurebike = fetchBikeState();
+                                    //futurebike = fetchBikeState();
                                     futurestaion = fetchBikeStation();
                                   });
                                 },
@@ -140,37 +139,49 @@ class _BikeState extends State<Bike> {
                         Expanded(
                           child: ListView.builder(
                             padding: const EdgeInsets.all(10),
-                            itemCount: items.length,
+                            itemCount: items2.length,
                             itemBuilder: ((context, index) {
-                              Map youbike = items[index];
+                              //Map youbike = items[index];
                               Map youbikeStation = items2[index];
                               //Map youbikeStationName = youbikeStation['StationName'];
-                              return Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(youbikeStation['StationName']
-                                          ['Zh_tw']),
-                                      Row(
+                              return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SecondRoute(
+                                            //databike: youbike,
+                                            dataStation: youbikeStation),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    color: const Color.fromARGB(255, 253, 208, 102),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
+                                          Text(youbikeStation['StationName']
+                                              ['Zh_tw']),
+                                          //Row(
+                                            //children: [
+                                              //Text(
+                                                //  '可借車數:${youbike['AvailableRentBikes']}'),
+                                              //const SizedBox(
+                                              //  width: 20,
+                                              //),
+                                              //Text(
+                                                //  '可還車數:${youbike['AvailableReturnBikes']}')
+                                            //],
+                                          //),
                                           Text(
-                                              '可借車數:${youbike['AvailableRentBikes']}'),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Text(
-                                              '可還車數:${youbike['AvailableReturnBikes']}')
+                                              'StationID:${youbikeStation['StationID']}'),
                                         ],
                                       ),
-                                      Text(
-                                          'StationID:${youbikeStation['StationID']}'),
-                                    ],
-                                  ),
-                                ),
-                              );
+                                    ),
+                                  ));
                             }),
                           ),
                         ),
@@ -179,11 +190,12 @@ class _BikeState extends State<Bike> {
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   } else {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   }
                 },
               ),
         floatingActionButton: FloatingActionButton(
+          //backgroundColor: const Color.fromARGB(31, 211, 182, 95),
           onPressed: () {
             setState(() {
               _showProgressIndicator = true;
@@ -195,6 +207,85 @@ class _BikeState extends State<Bike> {
             Icons.autorenew,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatefulWidget {
+  final Map dataStation;
+
+  const SecondRoute({super.key, required this.dataStation});
+
+  @override
+  _SecondRouteState createState() => _SecondRouteState();
+}
+
+class _SecondRouteState extends State<SecondRoute> {
+  late Future<List> _futureBike;
+
+  Future<List> fetchBikeState() async {
+    var response5 = await http.get(
+      Uri.parse(
+          "https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/Taipei?\$filter=contains(StationID, '${widget.dataStation['StationID']}')&%24format=JSON"),
+      headers: {'accept': ' application/json', 'Authorization': token},
+    );
+
+    if (response5.statusCode == 200) {
+      List bike = jsonDecode(response5.body);
+      print('success287');
+      return bike;
+    }else if (response5.statusCode == 429) {
+      print('5:${response5.statusCode}');
+      //if (restart == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('請求過快，請稍後再試'),
+          ),
+        );
+        //restart = false;
+      //}
+      return whenerror1;
+    }  
+    else {
+      print('5:${response5.statusCode}');
+      throw Exception('API has error');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _futureBike = fetchBikeState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 50,
+        title: Text(
+          widget.dataStation['StationName']['Zh_tw'],
+          style:const TextStyle(fontSize: 15),
+        ),
+      ),
+      body: FutureBuilder<List>(
+        future: _futureBike,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var bikenum = snapshot.data!;
+            Map num =bikenum[0];
+            return Column(
+              children: [
+                Text('可借車數:${num['AvailableRentBikes']}'),
+                Text('可還車數:${num['AvailableReturnBikes']}')
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          }
+          return const CircularProgressIndicator();
+        },
       ),
     );
   }

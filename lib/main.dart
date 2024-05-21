@@ -11,7 +11,8 @@ void main() async {
   runApp(const LoginPage());
 }
 
-String token=' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYzNjI0MzksImlhdCI6MTcxNjI3NjAzOSwianRpIjoiZTUyNjQzNDYtOWI5ZC00YTM1LWJiNTMtYWExMTkzMjBkMGQzIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.MIzBNBohjfikMAdg5QLti7rCwAZVAOTMkhnLX7OFR00iY1a5qNlw3jXLR1AaTTibCCA7uiRvQMXC5JgJu1fPuSqm8eZfhGtS4dr6o_povUY0lfO96SY4sLbBVSCE1XXuCTxA8771v-i9APDiyEDpLNGQsAy390kHNFtai75xvOLagJQBPGPZtAOYtq-kh-6bFXJToB8Q5pHwQ8WLo1waQg-KbN82gMuEZ3L3_4X9I-JTRi66H99kQee3lauwcoc70lwwQsuSVx6jcR9zmB_Wksb9fCtOFIy3TBckBRZZUn2GADaI1Wvm0gI6ekdi62T0mQeNR6jbP14NCizShtn9PQ';
+String token =
+    ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYzNjI0MzksImlhdCI6MTcxNjI3NjAzOSwianRpIjoiZTUyNjQzNDYtOWI5ZC00YTM1LWJiNTMtYWExMTkzMjBkMGQzIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.MIzBNBohjfikMAdg5QLti7rCwAZVAOTMkhnLX7OFR00iY1a5qNlw3jXLR1AaTTibCCA7uiRvQMXC5JgJu1fPuSqm8eZfhGtS4dr6o_povUY0lfO96SY4sLbBVSCE1XXuCTxA8771v-i9APDiyEDpLNGQsAy390kHNFtai75xvOLagJQBPGPZtAOYtq-kh-6bFXJToB8Q5pHwQ8WLo1waQg-KbN82gMuEZ3L3_4X9I-JTRi66H99kQee3lauwcoc70lwwQsuSVx6jcR9zmB_Wksb9fCtOFIy3TBckBRZZUn2GADaI1Wvm0gI6ekdi62T0mQeNR6jbP14NCizShtn9PQ';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -68,6 +69,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(168, 214, 199, 101)),
+        useMaterial3: true,
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -179,7 +185,7 @@ class _MyApp0State extends State<MyApp0> {
   final List<Widget> _pages = [
     const Taipeiveiw(),
     const Bike(),
-    const Search(),
+    const Center(child:  Icon(Icons.search)),
   ];
 
   @override
@@ -188,15 +194,18 @@ class _MyApp0State extends State<MyApp0> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(197, 196, 151, 46)),
         useMaterial3: true,
       ),
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor:Color.fromARGB(31, 223, 213, 20),
           title: const Text('台北景點app'),
         ),
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color.fromARGB(255, 255, 239, 134),
           currentIndex: _selectedIndex,
           onTap: (index) {
             setState(() {
@@ -217,6 +226,8 @@ class _MyApp0State extends State<MyApp0> {
               label: 'Search',
             ),
           ],
+          selectedItemColor: Colors.pink, // 设置选中项目的颜色
+          unselectedItemColor: Colors.grey, // 设置未选中项目的颜色
         ),
       ),
     );
