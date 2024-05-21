@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'bike.dart';
+import 'search.dart';
 import 'taipeiveiw.dart';
 
 void main() async {
   runApp(const LoginPage());
 }
+
+String token=' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYzNjI0MzksImlhdCI6MTcxNjI3NjAzOSwianRpIjoiZTUyNjQzNDYtOWI5ZC00YTM1LWJiNTMtYWExMTkzMjBkMGQzIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.MIzBNBohjfikMAdg5QLti7rCwAZVAOTMkhnLX7OFR00iY1a5qNlw3jXLR1AaTTibCCA7uiRvQMXC5JgJu1fPuSqm8eZfhGtS4dr6o_povUY0lfO96SY4sLbBVSCE1XXuCTxA8771v-i9APDiyEDpLNGQsAy390kHNFtai75xvOLagJQBPGPZtAOYtq-kh-6bFXJToB8Q5pHwQ8WLo1waQg-KbN82gMuEZ3L3_4X9I-JTRi66H99kQee3lauwcoc70lwwQsuSVx6jcR9zmB_Wksb9fCtOFIy3TBckBRZZUn2GADaI1Wvm0gI6ekdi62T0mQeNR6jbP14NCizShtn9PQ';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -164,10 +167,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class MyApp0 extends StatelessWidget {
+class MyApp0 extends StatefulWidget {
   const MyApp0({super.key});
 
-  // This widget is the root of your application.
+  @override
+  _MyApp0State createState() => _MyApp0State();
+}
+
+class _MyApp0State extends State<MyApp0> {
+  int _selectedIndex = 0;
+  final List<Widget> _pages = [
+    const Taipeiveiw(),
+    const Bike(),
+    const Search(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -177,150 +191,34 @@ class MyApp0 extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: const TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.place)),
-                Tab(icon: Icon(Icons.directions_bike)),
-                Tab(icon: Icon(Icons.search)),
-              ],
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('台北景點app'),
+        ),
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.place),
+              label: 'Taipei View',
             ),
-            title: const Text('台北景點app'),
-          ),
-          body: const TabBarView(
-            children: [
-              Taipeiveiw(),
-              Bike(),
-              Search(),
-            ],
-          ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.directions_bike),
+              label: 'Bike',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+          ],
         ),
       ),
-    );
-  }
-}
-
-List whenerror3 = List.empty();
-
-class Search extends StatefulWidget {
-  const Search({super.key});
-
-  @override
-  State<Search> createState() => _SearchState();
-}
-
-class _SearchState extends State<Search> {
-  late Future<List> futuresearch;
-  String searchTerm = 'Y';
-
-  void initState() {
-    super.initState();
-    futuresearch = fetchnumber();
-  }
-
-  Future<List> fetchnumber() async {
-    var response3 = await http.get(
-      Uri.parse(
-          "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON&\$filter=contains(StationName/Zh_tw, '$searchTerm')"),
-      headers: {
-        'accept': ' application/json',
-        'Authorization':
-            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYwMDYwMTAsImlhdCI6MTcxNTkxOTYxMCwianRpIjoiYThhODRkZDEtNzdiMy00MGMyLTliMTUtZmI0MDdhM2EyNTJmIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.c0Gc6pd4zjTZ0_OmmRp7fUVRD1YwjmQ-QDiEOv9UiTp6fkdvsdK_YIbRIxLn7cRZOstDN4MPJYZxyv5puQSwwy3scYvq4scej4cKCECHHXGYMnjIXl1jh2g66dl7DELPgBd3oSNGuDZ2lO3gYwRa8MbWw90TXoHG6JQisEo-DUK7kFGJUzxuzeAX5aejJuMkRi4LRrXKEfc2s_9bNXvW4BkxdEb1S9LHJiDORjjb0ReN-WoNcdlMZSPxfunZVHLozWbOGAu_YmijigVc9IkSJtq6gRAX5POmg-5gYZBlKAN0hkPQSbvTYB5wYr1e4mS7E8IAn291qBOo8F3klYEA1Q'
-      },
-    );
-
-    if (response3.statusCode == 200) {
-      List bike = jsonDecode(response3.body);
-      whenerror3 = bike;
-      //print('success2');
-      return bike;
-    } else if (response3.statusCode == 429) {
-      print('1:${response3.statusCode}');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('請求過快，請稍後再試'),
-        ),
-      );
-      return whenerror3;
-    } else {
-      print('1:${response3.statusCode}');
-      throw Exception(
-        'API has error',
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SearchAnchor(
-                  builder: (context, controller) {
-                    return SearchBar(
-                      leading: const Icon(Icons.search),
-                      controller: controller,
-                      hintText: 'Search Station',
-                      textInputAction: TextInputAction.search,
-                      onSubmitted: (value) {
-                        setState(() {
-                          searchTerm = value;
-                          futuresearch = fetchnumber();
-                        });
-                      },
-                    );
-                  },
-                  suggestionsBuilder: (context, controller) {
-                    return [];
-                  },
-                ),
-              ),
-              Expanded(
-                  child: Center(
-                child: FutureBuilder(
-                  future: futuresearch,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      var names = snapshot.data!;
-                      if (names.isEmpty) {
-                        return const Text('No Result');
-                      }
-                      return ListView.builder(
-                          padding: const EdgeInsets.all(10),
-                          itemCount: names.length,
-                          itemBuilder: ((context, index) {
-                            Map nam = names[index];
-                            return Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(nam['StationName']['Zh_tw']),
-                                    Text(nam['StationID']),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }));
-                    }else if(snapshot.hasError){
-                      return Text('${snapshot.error}');
-                    }
-                    else{
-                      return const CircularProgressIndicator();
-                    }
-                  },
-                ),
-              ))
-            ],
-          )),
     );
   }
 }

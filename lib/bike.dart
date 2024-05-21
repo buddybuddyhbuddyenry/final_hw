@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
+import 'package:final_hw/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 List whenerror1 = List.empty();
@@ -35,7 +35,7 @@ class _BikeState extends State<Bike> {
       headers: {
         'accept': ' application/json',
         'Authorization':
-            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYwMDYwMTAsImlhdCI6MTcxNTkxOTYxMCwianRpIjoiYThhODRkZDEtNzdiMy00MGMyLTliMTUtZmI0MDdhM2EyNTJmIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.c0Gc6pd4zjTZ0_OmmRp7fUVRD1YwjmQ-QDiEOv9UiTp6fkdvsdK_YIbRIxLn7cRZOstDN4MPJYZxyv5puQSwwy3scYvq4scej4cKCECHHXGYMnjIXl1jh2g66dl7DELPgBd3oSNGuDZ2lO3gYwRa8MbWw90TXoHG6JQisEo-DUK7kFGJUzxuzeAX5aejJuMkRi4LRrXKEfc2s_9bNXvW4BkxdEb1S9LHJiDORjjb0ReN-WoNcdlMZSPxfunZVHLozWbOGAu_YmijigVc9IkSJtq6gRAX5POmg-5gYZBlKAN0hkPQSbvTYB5wYr1e4mS7E8IAn291qBOo8F3klYEA1Q'
+            token
       },
     );
 
@@ -71,7 +71,7 @@ class _BikeState extends State<Bike> {
       headers: {
         'accept': ' application/json',
         'Authorization':
-            ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTYwMDYwMTAsImlhdCI6MTcxNTkxOTYxMCwianRpIjoiYThhODRkZDEtNzdiMy00MGMyLTliMTUtZmI0MDdhM2EyNTJmIiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.c0Gc6pd4zjTZ0_OmmRp7fUVRD1YwjmQ-QDiEOv9UiTp6fkdvsdK_YIbRIxLn7cRZOstDN4MPJYZxyv5puQSwwy3scYvq4scej4cKCECHHXGYMnjIXl1jh2g66dl7DELPgBd3oSNGuDZ2lO3gYwRa8MbWw90TXoHG6JQisEo-DUK7kFGJUzxuzeAX5aejJuMkRi4LRrXKEfc2s_9bNXvW4BkxdEb1S9LHJiDORjjb0ReN-WoNcdlMZSPxfunZVHLozWbOGAu_YmijigVc9IkSJtq6gRAX5POmg-5gYZBlKAN0hkPQSbvTYB5wYr1e4mS7E8IAn291qBOo8F3klYEA1Q'
+            token
       },
     );
 
@@ -120,7 +120,7 @@ class _BikeState extends State<Bike> {
                               return SearchBar(
                                 leading: const Icon(Icons.search),
                                 controller: controller,
-                                hintText: 'Search music',
+                                hintText: 'Search Station ',
                                 textInputAction: TextInputAction.search,
                                 onSubmitted: (value) {
                                   setState(() {
