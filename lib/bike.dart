@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:final_hw/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 List whenerror1 = List.empty();
 List whenerror2 = List.empty();
@@ -113,14 +114,13 @@ class _BikeState extends State<Bike> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: SearchAnchor(                           
+                          child: SearchAnchor(
                             builder: (context, controller) {
                               return SearchBar(
                                 leading: const Icon(Icons.search),
                                 controller: controller,
                                 hintText: 'Search Station ',
                                 textInputAction: TextInputAction.search,
-                                
                                 onSubmitted: (value) {
                                   setState(() {
                                     restart = true;
@@ -156,7 +156,8 @@ class _BikeState extends State<Bike> {
                                     );
                                   },
                                   child: Card(
-                                    color: const Color.fromARGB(255, 253, 208, 102),
+                                    color: const Color.fromARGB(
+                                        255, 253, 208, 102),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
@@ -166,15 +167,15 @@ class _BikeState extends State<Bike> {
                                           Text(youbikeStation['StationName']
                                               ['Zh_tw']),
                                           //Row(
-                                            //children: [
-                                              //Text(
-                                                //  '可借車數:${youbike['AvailableRentBikes']}'),
-                                              //const SizedBox(
-                                              //  width: 20,
-                                              //),
-                                              //Text(
-                                                //  '可還車數:${youbike['AvailableReturnBikes']}')
-                                            //],
+                                          //children: [
+                                          //Text(
+                                          //  '可借車數:${youbike['AvailableRentBikes']}'),
+                                          //const SizedBox(
+                                          //  width: 20,
+                                          //),
+                                          //Text(
+                                          //  '可還車數:${youbike['AvailableReturnBikes']}')
+                                          //],
                                           //),
                                           Text(
                                               'StationID:${youbikeStation['StationID']}'),
@@ -235,19 +236,18 @@ class _SecondRouteState extends State<SecondRoute> {
       List bike = jsonDecode(response5.body);
       print('success287');
       return bike;
-    }else if (response5.statusCode == 429) {
+    } else if (response5.statusCode == 429) {
       print('5:${response5.statusCode}');
       //if (restart == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('請求過快，請稍後再試'),
-          ),
-        );
-        //restart = false;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('請求過快，請稍後再試'),
+        ),
+      );
+      //restart = false;
       //}
       return whenerror1;
-    }  
-    else {
+    } else {
       print('5:${response5.statusCode}');
       throw Exception('API has error');
     }
@@ -262,11 +262,13 @@ class _SecondRouteState extends State<SecondRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 249, 249, 206),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 249, 249, 206),
         toolbarHeight: 50,
         title: Text(
           widget.dataStation['StationName']['Zh_tw'],
-          style:const TextStyle(fontSize: 15),
+          style: const TextStyle(fontSize: 15),
         ),
       ),
       body: FutureBuilder<List>(
@@ -274,11 +276,17 @@ class _SecondRouteState extends State<SecondRoute> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var bikenum = snapshot.data!;
-            Map num =bikenum[0];
+            Map num = bikenum[0];
+            var dateTime = DateTime.parse(num['SrcUpdateTime']);
+            var localDateTime = dateTime.toLocal().add(const Duration(hours: 8)); // 将时间转换为本地时间
+            var formattedDate =
+                DateFormat('yyyy/MM/dd HH:mm:ss').format(localDateTime);
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('可借車數:${num['AvailableRentBikes']}'),
-                Text('可還車數:${num['AvailableReturnBikes']}')
+                Text('可還車數:${num['AvailableReturnBikes']}'),
+                Text('資料更新時間:$formattedDate')
               ],
             );
           } else if (snapshot.hasError) {

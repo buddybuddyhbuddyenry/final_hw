@@ -66,7 +66,7 @@ class _MyAppState extends State<Taipeiveiw> {
                         );
                       },
                       child: Card(
-                        color: Color.fromARGB(255, 220, 227, 167),
+                        color: const Color.fromARGB(255, 220, 227, 167),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -99,7 +99,9 @@ class SecondRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     List image = data['images'];
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 249, 249, 206),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 249, 249, 206),
         toolbarHeight: 50,
         title: Text(
           data['name'],
