@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:final_hw/search.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,6 +13,9 @@ void main() async {
 
 String token =
     ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTY1MjIzMDEsImlhdCI6MTcxNjQzNTkwMSwianRpIjoiYzY0OTA1YmUtYzZkMC00NGNlLWI4MjktM2M2ZmZhNjViZDA4IiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiZWIyYTU0YjAtYzIwNC00YTRjLThhOGItZDA2NGE2OTNjZjQ4IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC04MTNiMTg0Yy02YTY2LTRlY2EiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.QI_Nlm_ODBGjKzIgMevovXHCYRe_go0O8zKK-a_Vczu3gPiXLxpujn7mcufFa7TOfWTwWccFbXlGJxmW6kcpSRFf3-Qy878QgL7F0PrAI82EQVfoV7T2m1huwmG-LGCQMCpm5sJdKOMTSD8UUTZG6onSWZZ2BhQ6iNg17qWnWDm5Ag4wxMECFJx_JJQLXuGKxWiE-zlMYth9Zkb2Qe5U3sR3d-wr5YfCIPSRsUWiu4u8cRFdzeapkVOB4WEe91SyUHBmGBu_xv3E0rD0pkRrOFM3KkbjAi6ABgFNGWQoyiY9BFUBYjjHAruhstkAv7ht_ybsp5-JysiTy11tQUitww';
+
+String token2 =
+    ' Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJER2lKNFE5bFg4WldFajlNNEE2amFVNm9JOGJVQ3RYWGV6OFdZVzh3ZkhrIn0.eyJleHAiOjE3MTY1NDMzOTMsImlhdCI6MTcxNjQ1Njk5MywianRpIjoiZWVkNTkxZDYtOWRjYS00ZWZjLTkxYjUtZGMwZWU4ODZkMzI1IiwiaXNzIjoiaHR0cHM6Ly90ZHgudHJhbnNwb3J0ZGF0YS50dy9hdXRoL3JlYWxtcy9URFhDb25uZWN0Iiwic3ViIjoiMWQ3ZGFlYzYtZWRjNC00MzI1LTgyMTEtMjI1ZmRiMzM1MGZkIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiaEVOUlk0MDIxMC1jZGMwZDc4NC1jZDA1LTRhNTMiLCJhY3IiOiIxIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInN0YXRpc3RpYyIsInByZW1pdW0iLCJwYXJraW5nRmVlIiwibWFhcyIsImFkdmFuY2VkIiwiZ2VvaW5mbyIsInZhbGlkYXRvciIsInRvdXJpc20iLCJoaXN0b3JpY2FsIiwiYmFzaWMiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInVzZXIiOiIwODM4NWQ4NSJ9.EEetMNswx7u_gNqlPZvIT0wX_qIbOkdYJ3lECAnzvYo-dDwMtKtuvgrScK8i_3bRF2CKnQfLeqgJAz3M1TcoYi4wQQFVMy9BIP6SJUeV6_BanEYE9ctlnVUMIEAyzG2UNJ1XosAS374QZ-_HD2z-h0RzPjv1ECy1C3015uuw_2zPNLJRjzHc0t-ELLa1tG7-iu73_HBIldBM0ZgBnoAab1bGnBXUvYTsvGzIFJ89ZC6srA9v3BtUg_EwXrGVr1PueEznqXtbZJ8JhkQTNMbqztT_Pby5MPicaV2ozvlR3dtmiqvFUFQX8xcmt7O3sRznCGqZ5yankAYke9NhnvhkGQ';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -184,7 +188,7 @@ class _MyApp0State extends State<MyApp0> {
   final List<Widget> _pages = [
     const Taipeiveiw(),
     const Bike(),
-    const Center(child:  Icon(Icons.search)),
+    const Search0(),
   ];
 
   @override
@@ -199,7 +203,7 @@ class _MyApp0State extends State<MyApp0> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor:Color.fromARGB(31, 223, 213, 20),
+          backgroundColor: Color.fromARGB(31, 223, 213, 20),
           title: const Text('台北景點app'),
         ),
         body: _pages[_selectedIndex],
