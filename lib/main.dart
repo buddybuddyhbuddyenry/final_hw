@@ -225,8 +225,8 @@ class _MyApp0State extends State<MyApp0> {
               label: 'Bike',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
+              icon: Icon(Icons.directions_bus),
+              label: 'Bus',
             ),
           ],
           selectedItemColor: Colors.pink, // 设置选中项目的颜色

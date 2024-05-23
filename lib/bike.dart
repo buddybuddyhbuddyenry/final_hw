@@ -33,7 +33,7 @@ class _BikeState extends State<Bike> {
     var response1 = await http.get(
       Uri.parse(
           "https://tdx.transportdata.tw/api/basic/v2/Bike/Availability/City/Taipei?%24format=JSON"),
-      headers: {'accept': ' application/json', 'Authorization': token},
+      headers: {'accept': ' application/json', 'Authorization': token2},
     );
 
     //await Future.delayed(Duration(seconds: 3));
@@ -65,7 +65,7 @@ class _BikeState extends State<Bike> {
     var response2 = await http.get(
       Uri.parse(
           "https://tdx.transportdata.tw/api/basic/v2/Bike/Station/City/Taipei?%24format=JSON&\$filter=contains(StationName/Zh_tw, '$searchTerm')"),
-      headers: {'accept': ' application/json', 'Authorization': token},
+      headers: {'accept': ' application/json', 'Authorization': token2},
     );
 
     //await Future.delayed(const Duration(seconds: 3));
@@ -262,9 +262,9 @@ class _SecondRouteState extends State<SecondRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 249, 249, 206),
+      backgroundColor: const Color.fromARGB(255, 255, 239, 134),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 249, 249, 206),
+        backgroundColor: const Color.fromARGB(255, 254, 241, 51),
         toolbarHeight: 50,
         title: Text(
           widget.dataStation['StationName']['Zh_tw'],
@@ -283,10 +283,16 @@ class _SecondRouteState extends State<SecondRoute> {
                 DateFormat('yyyy/MM/dd HH:mm:ss').format(localDateTime);
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('可借車數:${num['AvailableRentBikes']}'),
-                Text('可還車數:${num['AvailableReturnBikes']}'),
-                Text('資料更新時間:$formattedDate')
+              children: [Image.asset('assets/ubike.png'),
+                Text('可借車數:${num['AvailableRentBikes']}',style: const TextStyle(fontSize: 30),),
+                Text('可還車數:${num['AvailableReturnBikes']}',style: const TextStyle(fontSize: 30),),
+                Text('電動自行車數:${num['AvailableRentBikesDetail']['ElectricBikes']}',style: const TextStyle(fontSize: 30),),
+                Text('地址:${widget.dataStation['StationAddress']['Zh_tw']}',style: const TextStyle(fontSize: 30),),
+                Text('經度:${widget.dataStation['StationPosition']['PositionLon']}',style: const TextStyle(fontSize: 30),),
+                Text('緯度:${widget.dataStation['StationPosition']['PositionLat']}',style: const TextStyle(fontSize: 30),),
+                Text('資料更新時間:$formattedDate'),
+                
+                
               ],
             );
           } else if (snapshot.hasError) {
