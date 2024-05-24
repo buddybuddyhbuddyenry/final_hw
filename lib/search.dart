@@ -323,7 +323,7 @@ class _SearchState extends State<Search> {
                                             child: Text(newtime,
                                                 style: const TextStyle(
                                                     color: Colors.white,
-                                                    fontSize: 20)),
+                                                    fontSize: 15)),
                                           ),
                                         ),
                                       ),
@@ -345,7 +345,7 @@ class _SearchState extends State<Search> {
                                             child: Text(
                                               carnumber,
                                               style: const TextStyle(
-                                                  fontSize: 20), // 设置字体大小
+                                                  fontSize: 15), // 设置字体大小
                                             ),
                                           ),
                                         ),

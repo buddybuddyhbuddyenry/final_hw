@@ -278,7 +278,7 @@ class _SecondRouteState extends State<SecondRoute> {
             var bikenum = snapshot.data!;
             Map num = bikenum[0];
             var dateTime = DateTime.parse(num['SrcUpdateTime']);
-            var localDateTime = dateTime.toLocal().add(const Duration(hours: 8)); // 将时间转换为本地时间
+            var localDateTime = dateTime.toLocal(); // 将时间转换为本地时间
             var formattedDate =
                 DateFormat('yyyy/MM/dd HH:mm:ss').format(localDateTime);
             return Column(
